@@ -25,9 +25,9 @@ import java.util.List;
  *
  * <pre>
  * Start Server:
- * curl -k -X POST "https://localhost:8989/zk/server/create" -H "Content-Type: text/plain;charset=UTF-8" -d $'clientPort=2181\ndataDir=/Users/zhaochen/Desktop/temppath/zk'
+ * curl -k -X POST -H "Content-Type: text/plain;charset=UTF-8" "https://localhost:8989/zk/server/create" -d $'clientPort=2181\ndataDir=/Users/zhaochen/Desktop/temppath/zk'
  * curl -k "https://localhost:8989/zk/server/list"
- * curl -k "https://localhost:8989/zk/server/shutdown/serverId"
+ * curl -k "https://localhost:8989/zk/server/shutdown/0.0.0.0:2181"
  * </pre>
  *
  * @author <a href="mailto:iffiff1@gmail.com">Tyler Chen</a>
@@ -53,7 +53,11 @@ public class ZKServerActionHandler extends BaseActionHandler {
             ZookeeperServerService.shutdown(serverId);
             result = "OK";
         }
-        ctx.getOutputBuffer().writeBytes(ByteHelper.utf8(result));
+        byte[] src = ByteHelper.utf8(result);
+        ctx.getOutputBuffer().writeBytes(src);
+        if (src.length > 0 && src[src.length - 1] != '\n') {
+            ctx.getOutputBuffer().writeByte('\n');
+        }
         ctx.getResponse().setStatus(HttpResponseStatus.OK);
         ctx.outputHtml();
         return true;

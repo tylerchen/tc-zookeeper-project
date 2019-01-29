@@ -8,7 +8,9 @@
  ******************************************************************************/
 package org.iff.zookeeper.util;
 
+import java.beans.Transient;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Tupe
@@ -17,7 +19,7 @@ import java.io.Serializable;
  * @since 2018-10-26
  * auto generate by qdp.
  */
-public class Tuple<T, A, B, C, D, E, F, G, H, I, J, K, L, M, N> implements Serializable, TupleResult<T> {
+public class Tuple<T, A, B, C, D, E, F, G, H, I, J, K, L, M, N> implements Serializable, TupleResult<T>, Cloneable {
     private Object[] args = new Object[]{
             (T) null, (A) null, (B) null, (C) null, (D) null, (E) null, (F) null, (G) null, (H) null, (I) null, (J) null, (K) null, (L) null, (M) null, (N) null
     };
@@ -136,6 +138,58 @@ public class Tuple<T, A, B, C, D, E, F, G, H, I, J, K, L, M, N> implements Seria
 
     public N fourteenth() {
         return (N) args[14];
+    }
+
+    /**
+     * set argument.
+     *
+     * @param index argument index start from 1.
+     * @param value the argument value must match the Type.
+     * @return
+     * @since 2019-01-29
+     */
+    @Transient
+    public Tuple setValueStartsFromOne(int index, Object value) {
+        if (index == 1) {
+            args[index] = (A) value;
+        } else if (index == 2) {
+            args[index] = (B) value;
+        } else if (index == 3) {
+            args[index] = (C) value;
+        } else if (index == 4) {
+            args[index] = (D) value;
+        } else if (index == 5) {
+            args[index] = (E) value;
+        } else if (index == 6) {
+            args[index] = (F) value;
+        } else if (index == 7) {
+            args[index] = (G) value;
+        } else if (index == 8) {
+            args[index] = (H) value;
+        } else if (index == 9) {
+            args[index] = (I) value;
+        } else if (index == 10) {
+            args[index] = (J) value;
+        } else if (index == 11) {
+            args[index] = (K) value;
+        } else if (index == 12) {
+            args[index] = (L) value;
+        } else if (index == 13) {
+            args[index] = (M) value;
+        } else if (index == 14) {
+            args[index] = (N) value;
+        }
+        return this;
+    }
+
+    public Tuple clone() {
+        Tuple t = null;
+        try {
+            t = getClass().getDeclaredConstructor().newInstance();
+            t.args = Arrays.copyOf(args, args.length);
+        } catch (Exception e) {
+        }
+        return t;
     }
 
     public boolean isEmpty() {
