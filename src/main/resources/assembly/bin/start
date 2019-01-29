@@ -63,8 +63,8 @@ done
 
 # determine server home
 SERVER_HOME=`dirname "$SCRIPT"`/..
-SERVER_NAME=datarest
-SERVER_MAIN=com.foreveross.datarest.Main
+SERVER_NAME=zookeeper
+SERVER_MAIN=org.iff.zookeeper.Main
 
 # make DATAREST_HOME absolute
 SERVER_HOME=`cd "$SERVER_HOME"; pwd`
